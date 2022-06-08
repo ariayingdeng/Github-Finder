@@ -3,14 +3,16 @@ import { Link, useParams } from 'react-router-dom'
 import Spinner from '../components/layout/Spinner'
 import GithubContext from '../context/github/GithubContext'
 import { FaUsers, FaUserFriends, FaCodepen, FaStore } from 'react-icons/fa'
+import RepoList from '../components/repos/RepoList'
 
 function User() {
-  const { getUser, user, loading } = useContext(GithubContext)
+  const { getUser, user, loading, getRepos, repos } = useContext(GithubContext)
 
   const params = useParams()
 
   useEffect(() => {
     getUser(params.login)
+    getRepos(params.login)
   }, [])
 
   // destruct properties from user object
@@ -157,6 +159,7 @@ function User() {
             </div>
           </div>
         </div>
+        <RepoList repos={repos}/>
       </div>
     </>
   )
